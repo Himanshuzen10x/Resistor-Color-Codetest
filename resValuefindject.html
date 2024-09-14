@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resistor Color Code Tester</title>
+    <style>
+        #yee{
+            margin-top: 5%;
+            justify-content: center;
+            display: flex;
+            font-size: small;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+      #img{
+        justify-content: center;
+padding-left: 33vh;
+      }
+        body {
+font-family:cursive;
+            margin: 0;
+            padding: 0;
+        }
+
+        #first-band, #second-band, #multiplier-band, #tolerance-band {
+            font-size: medium;
+            font-family:cursive;
+        }
+
+        .containerr {
+    width: 90%; /* Adjust as needed */
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 2px solid rgb(0, 0, 0);
+
+    background-color: #e5e3e3; /* Change this color to any color you like */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        select {
+            display: block;
+            width: 100%;
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        #result {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px auto;
+                padding: 10px;
+                width: 95%; /* Adjust as needed */
+            }
+
+            select {
+                height: 36px;
+            }
+        }
+
+        /* Add background color to options */
+        select option {
+            background-color: #ffffff;
+        }
+
+        /* Resistor diagram styles */
+        #resistor {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .band {
+            display: inline-block;
+            width: 20px;
+            height: 40px;
+            border: 1px solid #000;
+            box-sizing: border-box;
+        }
+
+        #lead-left,
+        #lead-right {
+            width: 5px;
+            height: 40px;
+            background-color: #000;
+            display: inline-block;
+        }
+        #lead-leftt,
+        #lead-rightt {
+            width: 50px;
+            height: 4px;
+            margin-bottom: 3%;
+            background-color: #000;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="containerr">
+        <h1 id="h11">Resistor Color Code Tester</h1>
+        
+        <img id="img" src="http://www.robotsforfun.com/images/resistor150.png" alt="">
+        <div class="input-container">
+            <label for="first-band">1st Band (1st Digit)</label>
+            <select id="first-band" onchange="calculateresistance()">
+              <option value="0" style="background-color: black;">Black</option>
+              <option value="1" style="background-color: brown;">Brown</option>
+              <option value="2" style="background-color: red;">Red</option>
+              <option value="3" style="background-color: orange;">Orange</option>
+              <option value="4" style="background-color: yellow;">Yellow</option>
+              <option value="5" style="background-color: green;">Green</option>
+              <option value="6" style="background-color: blue;">Blue</option>
+              <option value="7" style="background-color: #7F00FF;">Violet</option>
+              <option value="8" style="background-color: gray;">Gray</option>
+              <option value="9" style="background-color: white;">White</option>            </select>
+            <label for="second-band">2nd Band (2nd Digit)</label>
+            <select id="second-band" onchange="calculateresistance()">
+              <option value="0" style="background-color: black;">Black</option>
+              <option value="1" style="background-color: brown;">Brown</option>
+              <option value="2" style="background-color: red;">Red</option>
+              <option value="3" style="background-color: orange;">Orange</option>
+              <option value="4" style="background-color: yellow;">Yellow</option>
+              <option value="5" style="background-color: green;">Green</option>
+              <option value="6" style="background-color: blue;">Blue</option>
+              <option value="7" style="background-color: #7F00FF;">Violet</option>
+              <option value="8" style="background-color: gray;">Gray</option>
+              <option value="9" style="background-color: white;">White</option>            </select>
+            <label for="multiplier-band">Multiplier (Multiplier)</label>
+            <select id="multiplier-band" onchange="calculateresistance()">
+              <option value="1" style="background-color: black;">Black</option>
+              <option value="10" style="background-color: brown;">Brown 10</option>
+              <option value="100" style="background-color: red;">Red 10^2</option>
+              <option value="1000" style="background-color: orange;">Orange 10^3</option>
+              <option value="10000" style="background-color: yellow;">Yellow 10^4</option>
+              <option value="100000" style="background-color: green;">Green 10^5</option>
+              <option value="1000000" style="background-color: blue;">Blue 10^6</option>
+              <option value="10000000" style="background-color: #7F00FF;">Violet 10^7</option>
+              <option value="100000000" style="background-color: gray;">Gray 10^8</option>
+              <option value="1000000000" style="background-color: white;">White 10^9</option>            </select>
+            <label for="tolerance-band">Tolerance (Tolerance)</label>
+            <select id="tolerance-band" onchange="calculateresistance()">
+              <option value="20" style="background-color: black;" data-color="#000000">Black</option>
+              <option value="10" style="background-color: brown;" data-color="#964B00">Brown</option>
+              <option value="5" style="background-color: red;" data-color="#FF0000">Red</option>
+              <option value="2" style="background-color: orange;" data-color="#FFA500">Orange</option>
+              <option value="1" style="background-color: yellow;" data-color="#FFFF00">Yellow</option>
+              <option value="0.5" style="background-color: green;" data-color="#008000">Green</option>
+              <option value="0.25" style="background-color: blue;" data-color="#0000FF">Blue</option>
+              <option value="0.1" style="background-color: #7F00FF;" data-color="#7F00FF">Violet</option>
+              <option value="0.05" style="background-color: gray;" data-color="#808080">Gray</option>
+              <option value="0.02" style="background-color: white;" data-color="#FFFFFF">White</option>
+              <!-- Add gold and silver options -->
+              <option value="5" style="background-color: gold;" data-color="#FFD700">Gold</option>
+              <option value="10" style="background-color: silver;" data-color="#C0C0C0">Silver</option>
+          </select>
+          
+        </div>
+        <div id="resistor">
+            <div id="lead-leftt"></div>
+
+            <div id="lead-left"></div>
+            <div class="band" id="band1"></div>
+            <div class="band" id="band2"></div>
+            <div class="band" id="band3"></div>
+            <div class="band" id="band4"></div>
+            <div id="lead-right"></div>
+            <div id="lead-rightt"></div>
+
+        </div>
+        <div id="result"></div>
+        <div id="yee">powerd by Learningyouth.com</div>
+    </div>
+
+    <script>
+       function calculateresistance() {
+    const firstBandValue = parseInt(document.getElementById("first-band").value);
+    const secondBandValue = parseInt(document.getElementById("second-band").value);
+    const multiplierBandValue = parseInt(document.getElementById("multiplier-band").value);
+    const toleranceBandValue = parseFloat(document.getElementById("tolerance-band").value);
+
+    // Update resistor band colors
+    document.getElementById("band1").style.backgroundColor = getBandColor(firstBandValue);
+    document.getElementById("band2").style.backgroundColor = getBandColor(secondBandValue);
+    document.getElementById("band3").style.backgroundColor = getBandColor(Math.log10(multiplierBandValue)); // Convert multiplier value to power of 10
+    document.getElementById("band4").style.backgroundColor = document.getElementById("tolerance-band").selectedOptions[0].dataset.color;
+
+    // Calculate resistance value
+    const resistance = (firstBandValue * 10 + secondBandValue);
+
+    // Convert multiplier value to power of 10
+    let multiplierPower = Math.log10(multiplierBandValue);
+
+    // Display the result
+    document.getElementById("result").innerText = `resistance: ${resistance}X10^${multiplierPower}ohm ±${toleranceBandValue}% `;
+}
+
+
+
+function getToleranceColor(value) {
+    switch (value) {
+        case 1: return "#964B00"; // Brown
+        case 2: return "#FFA500"; // Red
+        case 5: return "#008000"; // Green
+        case 10: return "#808080"; // Gray
+        default: return "#000000"; // Default to black
+    }
+}
+
+
+        // Function to get color based on band value
+        function getBandColor(value) {
+            switch (value) {
+                case 0: return "#000000"; // Black
+                case 1: return "#964B00"; // Brown
+                case 2: return "#FF0000"; // Red
+                case 3: return "#FFA500"; // Orange
+                case 4: return "#FFFF00"; // Yellow
+                case 5: return "#008000"; // Green
+                case 6: return "#0000FF"; // Blue
+                case 7: return "#7F00FF"; // Violet
+                case 8: return "#808080"; // Gray
+                case 9: return "#FFFFFF"; // White
+                default: return "#000000"; // Default to black
+            }
+        }
+    </script>
+</body>
+
+</html>
