@@ -166,7 +166,6 @@ font-family:cursive;
               <option value="0.1" style="background-color: #7F00FF;" data-color="#7F00FF">Violet</option>
               <option value="0.05" style="background-color: gray;" data-color="#808080">Gray</option>
               <option value="0.02" style="background-color: white;" data-color="#FFFFFF">White</option>
-              <!-- Add gold and silver options -->
               <option value="5" style="background-color: gold;" data-color="#FFD700">Gold</option>
               <option value="10" style="background-color: silver;" data-color="#C0C0C0">Silver</option>
           </select>
@@ -195,19 +194,15 @@ font-family:cursive;
     const multiplierBandValue = parseInt(document.getElementById("multiplier-band").value);
     const toleranceBandValue = parseFloat(document.getElementById("tolerance-band").value);
 
-    // Update resistor band colors
     document.getElementById("band1").style.backgroundColor = getBandColor(firstBandValue);
     document.getElementById("band2").style.backgroundColor = getBandColor(secondBandValue);
-    document.getElementById("band3").style.backgroundColor = getBandColor(Math.log10(multiplierBandValue)); // Convert multiplier value to power of 10
+    document.getElementById("band3").style.backgroundColor = getBandColor(Math.log10(multiplierBandValue)); 
     document.getElementById("band4").style.backgroundColor = document.getElementById("tolerance-band").selectedOptions[0].dataset.color;
 
-    // Calculate resistance value
     const resistance = (firstBandValue * 10 + secondBandValue);
 
-    // Convert multiplier value to power of 10
     let multiplierPower = Math.log10(multiplierBandValue);
 
-    // Display the result
     document.getElementById("result").innerText = `resistance: ${resistance}X10^${multiplierPower}ohm ±${toleranceBandValue}% `;
 }
 
@@ -219,12 +214,11 @@ function getToleranceColor(value) {
         case 2: return "#FFA500"; // Red
         case 5: return "#008000"; // Green
         case 10: return "#808080"; // Gray
-        default: return "#000000"; // Default to black
+        default: return "#000000";
     }
 }
 
 
-        // Function to get color based on band value
         function getBandColor(value) {
             switch (value) {
                 case 0: return "#000000"; // Black
